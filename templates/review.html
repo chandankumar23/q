@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Answers</title>
+</head>
+<body>
+    <h2>Review Answers</h2>
+    <p>Your score is: {{ score }} / {{ total }}</p>
+    {% for question in questions %}
+        <h3>Question {{ question.id }}</h3>
+        <p>{{ question.question }}</p>
+        <p>Your answer: {{ answers.get(ans_id, 'Not answered') }}</p>
+        <p>Correct answer: {{ question.answer }}</p>
+    {% endfor %}
+</body>
+</html>

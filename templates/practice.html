@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ test }} Practice Test</title>
+</head>
+<body>
+    <h2>{{ test }} Practice Test</h2>
+    {% for question in questions %}
+        <h3>Question {{ question.id }}</h3>
+        <p>{{ question.question }}</p>
+        <form method="post" action="/submit">
+            {% for choice in question.choices %}
+                <input type="radio" id="{{ choice }}" name="answer" value="{{ choice }}">
+                <label for="{{ choice }}">{{ choice }}</label><br>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Next">
+        </form>
+    {% endfor %}
+    <form method="post" action="/result">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

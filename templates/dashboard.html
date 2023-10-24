@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Welcome, {{ username }}</h2>
+    <h3>Choose a Practice Test:</h3>
+    <ul>
+        {% for test in tests %}
+            <li><a href="/practice/{{ test }}">{{ test }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
