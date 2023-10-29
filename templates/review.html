@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Review Answers</title>
+    <title>Review</title>
 </head>
 <body>
-    <h2>Review Answers</h2>
-    <p>Your score is: {{ score }} / {{ total }}</p>
+
+    <!-- <style>
+        .review-panel{
+            box-sizing: border-box;
+            border-radius: 0px;
+            width:100%;
+            height: 200px;
+            border-width: 5px;
+            border-color: black;
+            background-color: greenyellow;
+        }
+        .question {
+            background-color: aquamarine;
+            width: 95%;
+            height: 25px;
+            border-radius: 25px;
+            padding: 30px;
+        }
+        .answer{
+            background-color: aquamarine;
+            margin-top: 30px;
+            width: 95%;
+            height: 25px;
+            /* border-radius: 25px; */
+            padding: 30px;
+        }
+
+        .explain {
+            background-color: white;
+            width: 95%;
+            height: 25px;
+            /* border-radius: 25px; */
+            padding: 30px;
+            margin: auto;
+        }
+
+    </style> -->
+    <!-- <h1>Welcome, {{ username }}!</h1>
+    <h2>Review:</h2>
+    <p>Practice Paper: {{ paper_name }}</p>
+    <p>Subject: {{ subject }}</p> -->
+
     {% for question in questions %}
-        <h3>Question {{ question.id }}</h3>
-        <p>{{ question.question }}</p>
-        <p>Your answer: {{ answers.get(ans_id, 'Not answered') }}</p>
-        <p>Correct answer: {{ question.answer }}</p>
+        <div class="review">
+            <h3>Question {{ loop.index }}:</h3>
+            <p class="question">{{ question["question"] }}</p>
+            <div class="review-panel">
+                <a class="answer"> Correct Answer: {{ question["answer"] }}</a>
+                <br>
+                <a class="explain"> Explaination: {{ question["explaination"] }}</a>
+                <hr>
+            </div>
+
+        </div>
     {% endfor %}
 </body>
 </html>

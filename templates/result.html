@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .result-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .result-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Quiz Result</h2>
-    <p>Congratulations! You have completed the {{ test }} practice test.</p>
-    <p>Your score is: {{ score }} / {{ total }}</p>
-    <form action="/review_answers" method="post">
-        <input type="submit" value="Review Answers">
-    </form>
+    <div class="result-container">
+        <h2 class="result-message">Your score for {{ test }}: {{ score }}</h2>
+    </div>
 </body>
 </html>

@@ -1,19 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ question.question }}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .question-container {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .question-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .choices {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .choices li {
+            margin-bottom: 10px;
+        }
+
+        .choices input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h2>Question {{ question.id }}</h2>
-    <p>{{ question.question }}</p>
-    <form method="post" action="/next_question">
-        <input type="hidden" name="question_id" value="{{ question.id }}">
-        {% for choice in question.choices %}
-            <input type="radio" id="{{ choice }}" name="answer" value="{{ choice }}">
-            <label for="{{ choice }}">{{ choice }}</label><br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Next">
-    </form>
+    <div class="question-container">
+        <h2>{{ test }}</h2>
+        <div class="question">
+            <p>{{ question.question }}</p>
+        </div>
+        <form method="post">
+            <ul class="choices">
+                {% for choice in question.choices %}
+                    <li>
+                        <input type="radio" id="{{ loop.index }}" name="answer" value="{{ choice }}">
+                        <label for="{{ loop.index }}">{{ choice }}</label>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit" class="submit-button">Next</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Questions</title>
+</head>
+
+<body>
+
+    <style>
+        .question-class {
+            width: 95%;
+            background-color: yellowgreen;
+            height: 20px;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .question {
+            background-color: aquamarine;
+            width: 95%;
+            height: 75px;
+            border-radius: 25px;
+            padding: 30px;
+
+        }
+
+        .choice-details {
+            list-style: none;
+            margin-left: 1px;
+            width: 100%;
+            background-color: cornflowerblue;
+            height: 40px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .choice-details hover {
+            background-color: black;
+        }
+
+        .btn-details {
+            width: 100px;
+            height: 40px;
+            border-radius: 20px;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        a {
+            width: 200px;
+            height: 40px;
+            border-radius: 20px;
+        }
+
+        .nxt-btn {
+            width: 50%;
+            background-color: grey;
+            height: 30px;
+            align-items: right;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            width:50px;
+            height: 10px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- <h1>Welcome, {{ username }}!</h1>
+    <h2>Selected Practice Paper: {{ paper_name }}</h2>
+    <h2>Selected Subject: {{ subject }}</h2> -->
+
+
+    <div class = "container">
+
+        <h2 class="question-class" >Question {{ current_question_index + 1 }} of {{ total_questions }}:</h2>
+        <h3 class = "question"> {{ current_question["question"] }}</h3>
+        <form action="/review" method="post">
+            <ul>
+                {% for choice in current_question["choices"] %}
+                    <li><input type="radio" class="quest-details" id="{{ loop.index }}" name="question{{ current_question_index }}" value="{{ choice }}"> {{ choice }}</li>
+                {% endfor %}
+            </ul>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="button-container">
+        {% if has_prev %}
+        <a 
+            href="/practice-papers/{{ paper_name }}/subjects/{{ subject }}/questions?current_question_index={{ current_question_index - 1 }}">Previous</a>
+        {% endif %}
+        {% if has_next %}
+        <a
+            href="/practice-papers/{{ paper_name }}/subjects/{{ subject }}/questions?current_question_index={{ current_question_index + 1 }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>

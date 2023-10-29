@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Subjects</title>
+</head>
+
+<style>
+    .header-paper-name {
+        width: 100%;
+        height: 25vh;
+        background-color: silver;
+
+    }
+
+    ul.breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+    }
+
+    ul.breadcrumb li {
+        display: inline;
+        font-size: 18px;
+    }
+
+    ul.breadcrumb li+li:before {
+        padding: 8px;
+        color: black;
+        content: ">\00a0";
+    }
+
+    ul.breadcrumb li a {
+        color: #0275d8;
+        text-decoration: none;
+    }
+
+    ul.breadcrumb li a:hover {
+        color: #01447e;
+        text-decoration: underline;
+    }
+
+    .paper-name {
+        text-decoration: solid;
+        text-transform: uppercase;
+        margin-left: 30px;
+
+    }
+
+    .note {
+        color: red;
+        display: block;
+        font-weight: bolder;
+    }
+
+    .subject-class {
+        list-style: none;
+        display: block;
+        position: absolute;
+        height: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 80px;
+        margin-left: 80px;
+        background-color: green;
+    }
+
+
+    .module-panel {
+        box-sizing: border-box;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 60px;
+    }
+
+    .module-panel ul li {
+        text-decoration: none;
+    }
+
+    .module-panel a {
+        margin-top: 10px;
+        text-decoration: none;
+        background-color: lightblue;
+        height: 300px;
+        line-height: 75px;
+        border-radius: 0px;
+        border: 2px solid #73AD21;
+        padding: 10px;
+    }
+
+    .subs-list a {
+            width:1500px;
+            height: 50px;
+            list-style: none;
+            align-items: right;
+            color: black;
+            line-height: 20px;
+
+        }
+
+    .button-class {
+        width: 250px;
+        height:50px;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+</style>
+
+<body>
+    <div class="header-paper-name">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">{{paper_name}}</a></li>
+        </ul>
+        <div class="paper-name">
+            <h1> {{ paper_name }}</h1>
+            <p> 4 modules</p>
+            <p class="note"> NOTE: ONLY SELECT THE EXTRA TIME OPTION IF YOU ARE SURE YOU WILL QUALIFY FOR THIS IN ACTUAL
+                TEST</p>
+        </div>
+    </div>
+
+
+    <!-- <ul>
+        {% for paper in practice_papers %}
+        <li class="prac-list"><a href="/practice-papers/{{ paper }}/subjects">{{ paper }}</a></li>
+        <p> 4/4 modules answered</p>
+        <a style=" color:green" href="#">View Details</a>
+        <hr style="width:100%;text-align:left;margin-left:0">
+        {% endfor %}
+    </ul> -->
+
+    <div>
+        <ul>
+            {% for subject in subjects %}
+            <li class = subs-list > <a href="/practice-papers/{{ paper_name }}/subjects/{{ subject }}/questions">{{ subject
+                    }} </a></li>
+                    <br>
+                    <br>
+            <input type="button" class="button-class" value="Start Module with 25% extra time" />
+            <input type="button" class="button-class" value="Start Module" />
+            <hr style="width:100%;text-align:left;margin-left:0">
+    
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+</body>
+
+</html>

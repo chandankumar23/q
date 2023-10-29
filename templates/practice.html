@@ -1,24 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ test }} Practice Test</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .practice-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .test-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .test-list li {
+            margin-bottom: 10px;
+        }
+
+        .test-list a {
+            display: block;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .test-list a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h2>{{ test }} Practice Test</h2>
-    {% for question in questions %}
-        <h3>Question {{ question.id }}</h3>
-        <p>{{ question.question }}</p>
-        <form method="post" action="/submit">
-            {% for choice in question.choices %}
-                <input type="radio" id="{{ choice }}" name="answer" value="{{ choice }}">
-                <label for="{{ choice }}">{{ choice }}</label><br>
+    <div class="practice-container">
+        <h2>Practice Tests:</h2>
+        <ul class="test-list">
+            {% for test in tests %}
+                <li><a href="{{ url_for('question', test=test, qid=0) }}">{{ test }}</a></li>
             {% endfor %}
-            <br>
-            <input type="submit" value="Next">
-        </form>
-    {% endfor %}
-    <form method="post" action="/result">
-        <input type="submit" value="Submit">
-    </form>
+        </ul>
+    </div>
 </body>
 </html>

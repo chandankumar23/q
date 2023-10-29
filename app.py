@@ -6,49 +6,16 @@ app.secret_key = 'supersecretkey'
 # Mock user database
 users = {'john': 'password', 'jane': '12345'}
 
-# Sample questions
-questions = {
-    'English': [
-        {
-            'id': 1,
-            'question': 'What is the capital of India?',
-            'choices': ['Delhi', 'Kolkata', 'Chennai', 'Mumbai'],
-            'answer': 'Delhi'
-        },
-        {
-            'id': 2,
-            'question': 'Which is capital of Karnataka?',
-            'choices': ['Tumkur', 'Hubli', 'Mysore', 'Bangalore'],
-            'answer': 'Bangalore'
-        },
-        {
-            'id': 3,
-            'question': 'Identify the noun in "India is a beautiful country"',
-            'choices': ['A', 'Country', 'India', 'Beautiful'],
-            'answer': 'Bhutan'
-        },
-        {
-            'id': 4,
-            'question': 'Which of these is a common noun?',
-            'choices': ['Acting', 'John', 'Beautiful', 'She'],
-            'answer': 'She'
-        }
-    ],
-    'History': [
-        {
-            'id': 1,
-            'question': 'When did World War II end?',
-            'choices': ['1943', '1944', '1945', '1946'],
-            'answer': '1945'
-        },
-        {
-            'id': 2,
-            'question': 'Who was the first president of the United States?',
-            'choices': ['George Washington', 'Thomas Jefferson', 'John Adams', 'Abraham Lincoln'],
-            'answer': 'George Washington'
-        }
-    ]
-}
+
+practice_papers_list = ["New ISEB Practice Test  1","New ISEB Practice Test  2","New ISEB Practice Test  3", "New ISEB Practice Test 4 "]
+subjects_list = ['English', 'Maths','Science', 'History']
+
+
+
+
+# Initialize selected answers
+selected_answers = {}
+selected_practice = {}
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -58,76 +25,165 @@ def login():
         if username in users and users[username] == password:
             session['username'] = username
             return redirect(url_for('dashboard'))
+            # return redirect(url_for(practice_papers(username)))
         return render_template('login.html', error='Invalid username or password')
     return render_template('login.html')
+
 
 
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
         username = session['username']
-        return render_template('dashboard.html', username=username, tests=questions.keys())
+        return render_template('dashboard.html', username=username, practice_papers=practice_papers_list)
     return redirect(url_for('login'))
+
+
+@app.route('/practice-papers/<paper_name>/subjects')
+def subjects( paper_name):
+    return render_template('subjects.html', paper_name=paper_name, subjects=subjects_list)
+
+
+@app.route('/practice-papers/<paper_name>/subjects/<subject>/questions', methods=['GET'])
+def questions(paper_name, subject):
+    username = "John Doe"  # Replace with the actual username
+    questions = [
+        {
+            "question": "What is capital of India?",
+            "choices": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
+            "answer": "New Delhi",
+            "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+            "question": "What is the value of 3^2?",
+            "choices": ["81", "9", "27", "64"],
+            "answer": "9",
+             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+        },
+        {
+            "question": "What is state of water at 100 degree celsius?",
+            "choices": ["Solid", "Ice", "Vapour", "None of the above"],
+            "answer": "Vapour",
+             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+        }
+    ]  # Replace with your actual questions data
+
+    current_question_index = int(request.args.get('current_question_index', 0))
+    total_questions = len(questions)
+    current_question = questions[current_question_index]
+    has_prev = current_question_index > 0
+    has_next = current_question_index < total_questions - 1
+
+    return render_template('questions.html', username=username, paper_name=paper_name, subject=subject, current_question=current_question, current_question_index=current_question_index, total_questions=total_questions, has_prev=has_prev, has_next=has_next)
+
+
+@app.route('/review', methods=['GET', 'POST'])
+def review():
+
+    username = "John"
+    paper_name = "Sample Paper" # Replace with the actual paper name
+    subject = "Sample Subject"  # Replace with the actual subject
+    questions = [
+        {
+            "question": "What is capital of India?",
+            "choices": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
+            "answer": "New Delhi",
+            "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+            "question": "What is the value of 3^2?",
+            "choices": ["81", "9", "27", "64"],
+            "answer": "9",
+             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+        },
+        {
+            "question": "What is state of water at 100 degree celsius?",
+            "choices": ["Solid", "Ice", "Vapour", "None of the above"],
+            "answer": "Vapour",
+             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+        }
+    ]  # Replace with your actual questions data
+
+    return render_template('review.html', username=username, paper_name=paper_name, subject=subject, questions=questions)
+
+
+
+
+# @app.route('/practice-papers/<paper_name>/subjects/<subject>/questions')
+# def questions(paper_name, subject):
+#     questions = [
+#         {
+#             "question": "What is question 1?",
+#             "choices": ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+#             "answer": "Choice 1"
+#         },
+#         {
+#             "question": "What is question 2?",
+#             "choices": ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+#             "answer": "Choice 2"
+#         },
+#         {
+#             "question": "What is question 3?",
+#             "choices": ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+#             "answer": "Choice 3"
+#         }
+#     ]  # Replace with your actual questions data
+
+#     return render_template('questions.html',paper_name=paper_name, subject=subject, questions=questions)
+
+
 
 
 @app.route('/practice/<test>')
 def practice(test):
     if 'username' in session:
         if test in questions:
-            session['test'] = test
-            session['question_number'] = 0
-            return redirect(url_for('next_question'))
+            selected_answers[test] = {}
+            return redirect(url_for('question', test=test, qid=0))
         return 'Test not found'
     return redirect(url_for('login'))
 
-
-@app.route('/next_question', methods=['GET', 'POST'])
-def next_question():
-    if 'username' in session and 'test' in session:
-        test = session['test']
-        question_number = session['question_number']
-        if question_number < len(questions[test]):
-            question = questions[test][question_number]
+@app.route('/question/<test>/<int:qid>', methods=['GET', 'POST'], endpoint='question')
+def question(test, qid):
+    if 'username' in session:
+        if test in questions and qid < len(questions[test]):
             if request.method == 'POST':
-                answer = request.form['answer']
-                # save the answer somewhere if needed
-                return redirect(url_for('next_question'))
-            session['question_number'] += 1
-            return render_template('question.html', question=question)
-        else:
-            return redirect(url_for('result'))
+                selected_answer = request.form['answer']
+                selected_answers.setdefault(test, {})[qid] = selected_answer
+                next_qid = qid + 1
+                if next_qid < len(questions[test]):
+                    return redirect(url_for('question', test=test, qid=next_qid))
+                else:
+                    return redirect(url_for('result', test=test))
+            return render_template('question.html', test=test, qid=qid, question=questions[test][qid])
     return redirect(url_for('login'))
 
-
-@app.route('/result', methods=['GET', 'POST'])
-def result():
-    if 'username' in session and 'test' in session:
-        test = session['test']
-        answers = session.get('answers', {})
-        score = 0
-        for question in questions[test]:
-            user_answer = answers.get(str(question['id']), None)
-            if user_answer and user_answer == question['answer']:
-                score += 1
-        return render_template('result.html', test=test, score=score, total=len(questions[test]))
-    return redirect(url_for('login'))
-
-
-@app.route('/review_answers', methods=['GET', 'POST'])
-def review_answers():
-    if 'username' in session and 'test' in session:
-        test = session['test']
-        answers = session.get('answers', {})
-        score = 0
-        for question in questions[test]:
-            user_answer = answers.get(str(question['id']), None)
-            if user_answer and user_answer == question['answer']:
-                score += 1
-        return render_template('review.html', questions=questions[test], answers=answers, score=score, total=len(questions[test]))
+@app.route('/result/test', methods=['GET', 'POST'])
+def result(test):
+    if 'username' in session:
+        correct_count = 0
+        for qid, question in enumerate(questions[test]):
+            if selected_answers.get(test, {}).get(qid) == question['answer']:
+                correct_count += 1
+        score = f'{correct_count} out of {len(questions[test])}'
+        return render_template('result.html', test=test, score=score)
     return redirect(url_for('login'))
 
 
 
+# @app.route('/review', methods=['POST'])
+# def review(test):
+#     if 'username' in session:
+#         return render_template('review.html', test=test, questions=questions[test], selected_answers=selected_answers.get(test, {}))
+#     return redirect(url_for('login'))
+
+@app.route("/editprofile")
+def edit_profile():
+    return render_template("index.html", title="Second page")
 
 if __name__ == '__main__':
     app.run(debug=True)

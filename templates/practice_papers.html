@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Papers</title>
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <h2>Practice Papers:</h2>
+    <ul>
+        {% for paper in practice_papers %}
+            print("here")
+            print(paper)
+            <!-- <li><a href=">{{ paper }}</a></li> -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
