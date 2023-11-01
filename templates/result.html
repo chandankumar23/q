@@ -5,32 +5,173 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
+            position: relative;
+        }
+        .title {
+            margin: 20px 0;
         }
 
-        .result-container {
-            width: 300px;
-            padding: 20px;
+        .content-wrapper {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .table-container {
+            float: left;
+            width: 40%;
+            margin-left: 50px;
+        }
+
+
+        .chart {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 50px;
+        }
+
+
+        .bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+
+        }
+
+        .bar-label {
+            width: 100px;
+            text-align: right;
+            padding-right: 10px;
+            margin-right:30px;
+        }
+
+        .bar {
+            height: 30px;
+            background-color: #4CAF50;
+            margin-right: 10px;
+            flex-grow: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
             border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 8px;
+            text-align: left;
         }
 
-        .result-message {
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        .review-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        
+        .info {
+            margin-top: 50px;
+            width: 80%;
             text-align: center;
-            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .info .p{
+            margin-left: 5px;
         }
     </style>
+
 </head>
 <body>
-    <div class="result-container">
-        <h2 class="result-message">Your score for {{ test }}: {{ score }}</h2>
+    <div class="title">
+        <h1>Transcripts and Results</h1>
+    </div>
+    <div class="content-wrapper">
+        <div class="table-container">
+            <h2>Summary</h2>
+            <table>
+                <!-- <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Country</th>
+                </tr> -->
+                <tr>
+                    <td>Standard Age Score (SAS)</td>
+                    <td>132</td>
+                </tr>
+                <tr>
+                    <td>Questions Answered</td>
+                    <td>45 (out of 45)</td>
+                </tr>
+                <tr>
+                    <td>Time Taken</td>
+                    <td>1hr 34mins</td>
+                </tr>
+                <tr>
+                    <td>Average Time per Questions</td>
+                    <td>1min 4sec</td>
+                </tr>
+            </table>
+        </div>
+    
+        <div class="chart">
+            <h2>Ability Subtopic Breakdown</h2>
+            <div class="bar-container">
+                <div class="bar-label">Nouns</div>
+                <div class="bar" style="width: 200px;"></div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">Verbs</div>
+                <div class="bar" style="width: 150px;"></div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">Adjectives</div>
+                <div class="bar" style="width: 100px;"></div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-label">Pronouns</div>
+                <div class="bar" style="width: 120px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <a class="review-link" href="/practice-papers/subjects/{{subject}}/review"">Review you test</a>
+
+    <div class="info">
+        <p>Set a practice on the 3 waekest areas from the test..</p>
+        <p> Pronouns</p>
+        <p>Adverbs</p>
+        <p>Conjunctions</p>
+        <a href ="#"> Set Practice</a>
     </div>
 </body>
 </html>

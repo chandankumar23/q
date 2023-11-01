@@ -78,16 +78,11 @@
             cursor: pointer;
         }
     </style>
-    <!-- <h1>Welcome, {{ username }}!</h1>
-    <h2>Selected Practice Paper: {{ paper_name }}</h2>
-    <h2>Selected Subject: {{ subject }}</h2> -->
-
 
     <div class = "container">
-
         <h2 class="question-class" >Question {{ current_question_index + 1 }} of {{ total_questions }}:</h2>
         <h3 class = "question"> {{ current_question["question"] }}</h3>
-        <form action="/review" method="post">
+        <form action="/{{username}}/{{subject}}/submit" method="post">  
             <ul>
                 {% for choice in current_question["choices"] %}
                     <li><input type="radio" class="quest-details" id="{{ loop.index }}" name="question{{ current_question_index }}" value="{{ choice }}"> {{ choice }}</li>
