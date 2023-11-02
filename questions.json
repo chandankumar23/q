@@ -1,0 +1,22 @@
+[
+    {
+        "question": "What is capital of India?",
+        "choices": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
+        "answer": "New Delhi",
+        "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        "question": "What is the value of 3^2?",
+        "choices": ["81", "9", "27", "64"],
+        "answer": "9",
+         "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+    },
+    {
+        "question": "What is state of water at 100 degree celsius?",
+        "choices": ["Solid", "Ice", "Vapour", "None of the above"],
+        "answer": "Vapour",
+         "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+    }
+]
