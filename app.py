@@ -9,7 +9,7 @@ users = {'john': 'password', 'jane': '12345'}
 
 practice_papers_list = ["New ISEB Practice Test  1","New ISEB Practice Test  2","New ISEB Practice Test  3", "New ISEB Practice Test 4 "]
 subjects_list = ['English', 'Maths','Science', 'History']
-
+user_answers = []
 
 with open('questions.json') as file:
     question_list = json.load(file)
@@ -71,15 +71,15 @@ def questions(paper_name, subject):
     username = "John Doe" 
     answers = request.form
     score = 0
-    print(score)
-    for key , value in answers.items():
-        print(answers.items)
-        for question in question_list :
-            if question['question'] == key:
-                if value == question['answer'] :
-                    print(value)
-                    score = +1
-                    print(score)
+    # print(score)
+    # for key , value in answers.items():
+    #     print(answers.items)
+    #     for question in question_list :
+    #         if question['question'] == key:
+    #             if value == question['answer'] :
+    #                 print(value)
+    #                 score = +1
+    #                 print(score)
 
 
     with open('questions.json', 'r') as file:
