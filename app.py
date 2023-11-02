@@ -95,6 +95,14 @@ def questions(paper_name, subject):
     return render_template('questions.html', username=username, paper_name=paper_name, subject=subject, current_question=current_question, current_question_index=current_question_index, total_questions=total_questions, has_prev=has_prev, has_next=has_next)
 
 
+@app.route('/review/<int:index>', methods=['GET'])
+def review_page(index):
+    if 0 <= index < len(question_list):
+        question = question_list[index]
+        return render_template('review.html', question=question, index=index, total=len(question_list))
+    else:
+        return "Question not found!"
+    
 @app.route('/practice-papers/subjects/<subject>/review', methods=['GET', 'POST'])
 def review( subject):
     print(subject)
@@ -121,7 +129,17 @@ def review( subject):
 
     #     }
     # ]  # Replace with your actual questions data
+    with open('questions.json', 'r') as file:
+        question_list = json.load(file)
+        # print(question_list)
+    # current_question_index = int(request.args.get('current_question_index', 0))
+    # total_questions = len(question_list)
+    # current_question = question_list[current_question_index]
+    # has_prev = current_question_index > 0
+    # has_next = current_question_index < total_questions - 1
+    # print(total_questions)
 
+    # return render_template('review.html',subject=subject, current_question=current_question, current_question_index=current_question_index, total_questions=total_questions, has_prev=has_prev, has_next=has_next)
     return render_template('review.html', subject=subject, questions=question_list)
 
 

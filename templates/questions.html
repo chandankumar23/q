@@ -8,36 +8,12 @@
 <body>
 
     <style>
-        .question-class {
-            width: 95%;
-            background-color: yellowgreen;
-            height: 20px;
-            padding: 30px;
-            border-radius: 15px;
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .question {
-            background-color: aquamarine;
-            width: 95%;
-            height: 75px;
-            border-radius: 25px;
-            padding: 30px;
-
-        }
-
-        .choice-details {
-            list-style: none;
-            margin-left: 1px;
-            width: 100%;
-            background-color: cornflowerblue;
-            height: 40px;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .choice-details hover {
-            background-color: black;
-        }
 
         .btn-details {
             width: 100px;
@@ -60,48 +36,79 @@
             align-items: right;
         }
 
+        /* .button-submit {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        } */
+
         .button-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
 
-        .button-container a {
-            text-decoration: none;
-            width:50px;
-            height: 10px;
-            padding: 15px;
-            background-color: #4CAF50;
+
+        .choices {
+            display: inline-block;
+            text-align: left;
+        }
+
+        /* .button-class{
+            display: inline-block;
+            padding: 10px 10px;
+            background-color: grey;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        } */
+
+
+        .question-block {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: lightgray;
+        }
+
+        li{
+            list-style: none;
         }
     </style>
 
-    <div class = "container">
-        <h2 class="question-class" >Question {{ current_question_index + 1 }} of {{ total_questions }}:</h2>
-        <h3 class = "question"> {{ current_question["question"] }}</h3>
-        <form action="/{{username}}/{{subject}}/submit" method="post">  
-            <ul>
-                {% for choice in current_question["choices"] %}
-                    <li><input type="radio" class="quest-details" id="{{ loop.index }}" name="question{{ current_question_index }}" value="{{ choice }}"> {{ choice }}</li>
-                {% endfor %}
-            </ul>
-            <br>
-            <input type="submit" value="Submit">
+    <div class="container">
+        <h2 class="question-block">Question {{ current_question_index + 1 }} of {{ total_questions }}:</h2>
+        <h2 class="question-block"> {{ current_question["question"] }}</h2>
+        <form action="/{{username}}/{{subject}}/submit" method="post">
+            <div class="choices">
+                <ul>
+                    {% for choice in current_question["choices"] %}
+                    <li><input type="radio" class="quest-details" id="{{ loop.index }}"
+                            name="question{{ current_question_index }}" value="{{ choice }}"> {{ choice }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+            </div>
+
+            <input class="button-submit" type="submit" value="Submit">
         </form>
     </div>
 
     <div class="button-container">
         {% if has_prev %}
-        <a 
+        <a class="button-class"
             href="/practice-papers/{{ paper_name }}/subjects/{{ subject }}/questions?current_question_index={{ current_question_index - 1 }}">Previous</a>
         {% endif %}
         {% if has_next %}
-        <a
+        <a class="button-class"
             href="/practice-papers/{{ paper_name }}/subjects/{{ subject }}/questions?current_question_index={{ current_question_index + 1 }}">Next</a>
         {% endif %}
     </div>
 </body>
+
 </html>
