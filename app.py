@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, json, jsonify
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -10,28 +10,31 @@ users = {'john': 'password', 'jane': '12345'}
 practice_papers_list = ["New ISEB Practice Test  1","New ISEB Practice Test  2","New ISEB Practice Test  3", "New ISEB Practice Test 4 "]
 subjects_list = ['English', 'Maths','Science', 'History']
 
-question_list = [
-        {
-            "question": "What is capital of India?",
-            "choices": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
-            "answer": "New Delhi",
-            "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-            "question": "What is the value of 3^2?",
-            "choices": ["81", "9", "27", "64"],
-            "answer": "9",
-             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
-        },
-        {
-            "question": "What is state of water at 100 degree celsius?",
-            "choices": ["Solid", "Ice", "Vapour", "None of the above"],
-            "answer": "Vapour",
-             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+with open('questions.json') as file:
+    question_list = json.load(file)
+# question_list = [
+#         {
+#             "question": "What is capital of India?",
+#             "choices": ["New Delhi", "Mumbai", "Chennai", "Kolkata"],
+#             "answer": "New Delhi",
+#             "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+#         },
+#         {
+#             "question": "What is the value of 3^2?",
+#             "choices": ["81", "9", "27", "64"],
+#             "answer": "9",
+#              "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
-        }
-    ]
+#         },
+#         {
+#             "question": "What is state of water at 100 degree celsius?",
+#             "choices": ["Solid", "Ice", "Vapour", "None of the above"],
+#             "answer": "Vapour",
+#              "explaination": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+#         }
+#     ]
 
 
 # Initialize selected answers
@@ -77,7 +80,11 @@ def questions(paper_name, subject):
                     print(value)
                     score = +1
                     print(score)
-                
+
+
+    with open('questions.json', 'r') as file:
+        question_list = json.load(file)
+        print(question_list)
     current_question_index = int(request.args.get('current_question_index', 0))
     total_questions = len(question_list)
     current_question = question_list[current_question_index]
@@ -176,6 +183,12 @@ def submit(username, subject):
 #     return redirect(url_for('login'))
 
 
+@app.route('/test', methods =['GET', 'POST'])
+def test():
+    with open('questions.json', 'r') as file:
+        question_list = json.load(file)
+        print(question_list)
+    return jsonify(question_list)
 
 # @app.route('/review', methods=['GET','POST'])
 # def review():
